@@ -1,4 +1,4 @@
-class InternalOptigateSchema < GraphQL::Schema
+class OptigateApiSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 
