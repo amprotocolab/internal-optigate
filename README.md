@@ -1,15 +1,16 @@
-# Agency Watcher — API
-![AgencyWatcher Logo](public/logo.png?raw=true "Title")
+# Optigate — API
+![Optigate Logo](public/logo.png?raw=true "Title")
 <!-- [![CircleCI status][]][CircleCI] -->
 <!-- [![Coverage status][]][Coverage] -->
-[![CI/CD Pipeline](https://github.com/amprotocolab/agencywatcher-api/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/amprotocolab/agencywatcher-api/actions/workflows/main.yml)
+<!-- Add CI/CD details later on -->
+<!-- [![CI/CD Pipeline](https://github.com/amprotocolab/agencywatcher-api/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/amprotocolab/agencywatcher-api/actions/workflows/main.yml) -->
 
 API Application to support Agency Watcher Frontend App
 
 **Table of Contents**
 <!-- TOC GFM -->
 
-+ [Agency Watcher — API](#agencywatcher--api)
++ [Optigate — API](#optigate--api)
   * [Dependencies](#dependencies)
     - [Local development](#local-development)
 
@@ -17,7 +18,7 @@ API Application to support Agency Watcher Frontend App
 ## Dependencies
 
 - Ruby 3.2.2
-- Rails 7.0.4
+- Rails 7.0.8
 - PostgreSQL
 
 ### Local development

@@ -30,7 +30,7 @@ RSpec.describe 'Users API' do
     end
 
     describe 'GET: /api/v1/users/:id' do
-      let!(:user1) { create(:user, :agency_admin) }
+      let!(:user1) { create(:user, :app_user) }
 
       it 'returns a single of users' do
         get "/api/v1/users/#{user1.id}",
@@ -42,7 +42,7 @@ RSpec.describe 'Users API' do
           last_name: user1.last_name,
           email: user1.email,
           phone_number: user1.phone_number,
-          roles: [hash_including(name: Role::PERMITTED.fetch(:agency_admin))],
+          roles: [hash_including(name: Role::PERMITTED.fetch(:app_user))],
         )
       end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Users API' do
           post '/api/v1/users',
             headers: auth_headers_for(user),
             params: {
-              user: user_attributes.merge(role_ids: [Role.agency_client.id], image: fixture_file_upload(Rails.root.join('spec', 'support', 'test12.jpg'), 'image/jpg'))
+              user: user_attributes.merge(role_ids: [Role.app_user.id], image: fixture_file_upload(Rails.root.join('spec', 'support', 'test12.jpg'), 'image/jpg'))
             }
         end.to change(User, :count).by(1)
 
@@ -74,7 +74,7 @@ RSpec.describe 'Users API' do
           last_name: new_user.last_name,
           email: new_user.email,
           phone_number: new_user.phone_number,
-          roles: [hash_including(name: Role::PERMITTED.fetch(:agency_admin))],
+          roles: [hash_including(name: Role::PERMITTED.fetch(:app_user))],
         )
       end
     end
@@ -86,7 +86,7 @@ RSpec.describe 'Users API' do
           put "/api/v1/users/#{user.id}",
             headers: auth_headers_for(user),
             params: {
-              user: user_attributes.except(:password).merge(role_ids: [Role.agency_client.id], image: fixture_file_upload(Rails.root.join('spec', 'support', 'test12.jpg'), 'image/jpg'))
+              user: user_attributes.except(:password).merge(role_ids: [Role.app_user.id], image: fixture_file_upload(Rails.root.join('spec', 'support', 'test12.jpg'), 'image/jpg'))
             }
           expect(json_response).to include(
             uuid: user.uuid,
@@ -94,7 +94,7 @@ RSpec.describe 'Users API' do
             last_name: user_attributes[:last_name],
             email: user_attributes[:email],
             phone_number: user_attributes[:phone_number],
-            roles: [hash_including(name: Role::PERMITTED.fetch(:agency_admin))],
+            roles: [hash_including(name: Role::PERMITTED.fetch(:app_user))],
           )
         end
       end
@@ -103,7 +103,7 @@ RSpec.describe 'Users API' do
         it 'updates a user without login' do
           put "/api/v1/users/#{user.id}",
             params: {
-              user: user_attributes.except(:password).merge(role_ids: [Role.agency_client.id])
+              user: user_attributes.except(:password).merge(role_ids: [Role.app_user.id])
             }
           expect(json_response).to include(
             errors: ["You need to sign in or sign up before continuing."]

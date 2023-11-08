@@ -6,18 +6,14 @@ FactoryBot.define do
     sequence(:last_name)  { |n| "Vega#{n}" }
     phone_number          { Faker::PhoneNumber.phone_number }
     confirmed_at          { Time.current }
-    role_ids              { [Role.agency_admin.id] }
+    role_ids              { [Role.app_user.id] }
 
     trait :super_admin do
       role_ids { [Role.super_admin.id] }
     end
 
-    trait :agency_admin do
-      role_ids { [Role.agency_admin.id] }
-    end
-
-    trait :agency_client do
-      role_ids { [Role.agency_client.id] }
+    trait :app_user do
+      role_ids { [Role.app_user.id] }
     end
   end
 end

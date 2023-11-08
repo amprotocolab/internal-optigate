@@ -5,6 +5,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[7.0]
       ## Required
       t.string :provider, :null => false, :default => "email"
       t.string :uid, :null => false, :default => ""
+      t.uuid :uuid, null: false, default: 'uuid_generate_v4()'
 
       ## Database authenticatable
       t.string :encrypted_password, :null => false, :default => ""
@@ -45,6 +46,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[7.0]
     add_index :users, [:uid, :provider],     unique: true
     add_index :users, :reset_password_token, unique: true
     add_index :users, :confirmation_token,   unique: true
+    add_index :users, :uuid,                 unique: true
     # add_index :users, :unlock_token,         unique: true
   end
 end
