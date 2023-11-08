@@ -1,24 +1,35 @@
-# README
+# Agency Watcher — API
+![AgencyWatcher Logo](public/logo.png?raw=true "Title")
+<!-- [![CircleCI status][]][CircleCI] -->
+<!-- [![Coverage status][]][Coverage] -->
+[![CI/CD Pipeline](https://github.com/amprotocolab/agencywatcher-api/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/amprotocolab/agencywatcher-api/actions/workflows/main.yml)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API Application to support Agency Watcher Frontend App
 
-Things you may want to cover:
+**Table of Contents**
+<!-- TOC GFM -->
 
-* Ruby version
++ [Agency Watcher — API](#agencywatcher--api)
+  * [Dependencies](#dependencies)
+    - [Local development](#local-development)
 
-* System dependencies
+<!-- /TOC -->
+## Dependencies
 
-* Configuration
+- Ruby 3.2.2
+- Rails 7.0.4
+- PostgreSQL
 
-* Database creation
+### Local development
 
-* Database initialization
+1. Run the setup script.
 
-* How to run the test suite
+   ```sh
+   $ bin/setup
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+1. Start the development server.
 
-* Deployment instructions
-
-* ...
+   ```sh
+   $ bin/rails s
+   ```

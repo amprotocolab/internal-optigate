@@ -13,6 +13,17 @@
 !/log/.keep
 !/tmp/.keep
 
+.byebug_history
+/public/uploads*
+
+# Local environment variables
+.env
+.env.development
+
+# Coveralls
+coverage
+dump.rdb
+
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
