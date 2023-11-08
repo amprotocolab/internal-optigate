@@ -10,13 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_18_172056) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_08_031026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
+  enable_extension "uuid-ossp"
+
+  create_table "roles", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_roles_on_name", unique: true
+    t.index ["uuid"], name: "index_roles_on_uuid", unique: true
+  end
+
+  create_table "roles_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
+    t.index ["role_id"], name: "index_roles_users_on_role_id"
+    t.index ["user_id"], name: "index_roles_users_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -26,10 +45,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_172056) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "name"
-    t.string "nickname"
-    t.string "image"
+    t.string "first_name"
+    t.string "last_name"
+    t.jsonb "image_data"
     t.string "email"
+    t.string "phone_number"
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,6 +57,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_172056) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+    t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
+  add_foreign_key "roles_users", "roles", on_delete: :cascade
+  add_foreign_key "roles_users", "users", on_delete: :cascade
 end
