@@ -8,5 +8,7 @@ module Types
     include MutationFields::Plan
     include MutationFields::Project
     include MutationFields::User
+    include MutationFields::Contact
+    include MutationFields::SystemNotificationMutationFields
   end
 end
