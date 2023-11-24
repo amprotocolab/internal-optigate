@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_21_120031) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_23_122852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -47,9 +47,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_21_120031) do
   create_table "system_notifications", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.boolean "read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state", default: "unread", null: false
   end
 
   create_table "users", force: :cascade do |t|

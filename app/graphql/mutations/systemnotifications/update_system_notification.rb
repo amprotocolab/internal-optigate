@@ -5,8 +5,7 @@ module Mutations
     argument :content, String, required: true
 
     field :system_notification, Types::SystemNotificationType, null: true
-    field :errors, [String], null: false
-
+    
     def resolve(id:, title:, content:)
       system_notification = SystemNotification.find_by(id: id)
 

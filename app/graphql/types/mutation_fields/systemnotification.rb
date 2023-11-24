@@ -16,6 +16,18 @@ module Types
           mutation: Mutations::UpdateSystemNotification,
           guard: ->(_, _, ctx) { ctx[:current_ability].can?(:update, SystemNotification) }
         )
+
+        field(
+          :delete_system_notification,
+          mutation: Mutations::DeleteSystemNotification,
+          guard: ->(_, _, ctx) { ctx[:current_ability].can?(:delete, SystemNotification) }
+        )
+
+        field(
+          :mark_system_notifications_as_read,
+          mutation: Mutations::MarkSystemNotificationsAsRead,
+          guard: ->(_, _, ctx) { ctx[:current_ability].can?(:update, SystemNotification) }
+        )
       end
     end
   end

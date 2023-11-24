@@ -4,13 +4,12 @@ module Mutations
     argument :content, String, required: true
 
     field :system_notification, Types::SystemNotificationType, null: true
-    field :errors, [String], null: false
 
     def resolve(title:, content:)
       system_notification = SystemNotification.new(title: title, content: content)
 
       if system_notification.save
-        OneSignalService.send_notification(title, content) # Assuming you've implemented OneSignalService
+        OneSignalService.send_notification(title, content) 
         { system_notification: system_notification, errors: [] }
       else
         { system_notification: nil, errors: system_notification.errors.full_messages }

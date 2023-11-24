@@ -1,13 +1,10 @@
-# app/graphql/types/query_fields/system_notification_query_fields.rb
 module Types
   module QueryFields
     module SystemNotificationQueryFields
       extend ActiveSupport::Concern
 
       included do
-
-                                     #List
-
+        # List
         field(
           :system_notifications,
           resolver: Resolvers::SystemNotifications::Index,
@@ -15,13 +12,12 @@ module Types
         ) do
           extension(
             Extensions::SortExtension,
-            sort_column_type:    Types::SystemNotifications::SystemNotificationSortColumnsEnumType,
+            sort_column_type: Types::SystemNotifications::SystemNotificationSortColumnsEnumType,
             sort_column_default: :created_at
           )
         end
 
-                                   #read
-
+        # Read
         field(
           :system_notification,
           resolver: Resolvers::SystemNotifications::Show,
