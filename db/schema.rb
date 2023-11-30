@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_23_122852) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_27_140732) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -78,6 +78,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_23_122852) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["uuid"], name: "index_users_on_uuid", unique: true
+  end
+
+  create_table "verification_requests", force: :cascade do |t|
+    t.boolean "verified"
+    t.string "otp_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "roles_users", "roles", on_delete: :cascade
