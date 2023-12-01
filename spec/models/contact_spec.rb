@@ -1,6 +1,4 @@
-# spec/models/contact_spec.rb
 require 'rails_helper'
-
 RSpec.describe Contact, type: :model do
   describe 'validations' do
     it 'is valid with valid attributes' do

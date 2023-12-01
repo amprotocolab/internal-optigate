@@ -7,7 +7,6 @@ FactoryBot.define do
     contact_number  { Faker::PhoneNumber.phone_number }
     message         { Faker::Lorem.paragraph }
     
-
     trait :with_required_fields do
       # Add any additional customization for the factory with required fields
     end

@@ -25,8 +25,6 @@ module Mutations
           message: 'Contact Information has been processed successfully.'
         }
       end
-
-      
     end
   end
 end
