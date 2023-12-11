@@ -16,6 +16,7 @@ gem "rack-cors"
 gem 'graphiql-rails'
 gem 'graphql', '~> 1.10'
 gem 'graphql-guard', '~> 1.3'
+gem 'gibbon'
 
 group :development, :test do
   gem 'awesome_print'
