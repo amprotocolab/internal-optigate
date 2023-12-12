@@ -12,21 +12,18 @@ module Mutations
 
       def resolve(first_name:, last_name:, email:, contact_number:, message:, uid:)
         contact = Contact.create!(
-          uuid: uuid
+          uuid: uuid,
           first_name: first_name,
           last_name: last_name,
           email: email,
           contact_number: contact_number,
           message: message,
-          
         )
   
         {
           message: 'Contact Information has been processed successfully.'
         }
       end
-
-      
     end
   end
 end
