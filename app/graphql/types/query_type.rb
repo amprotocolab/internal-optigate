@@ -4,5 +4,6 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
     include QueryFields::User
+    include QueryFields::SystemNotificationQueryFields 
   end
 end

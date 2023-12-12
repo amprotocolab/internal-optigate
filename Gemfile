@@ -16,6 +16,8 @@ gem "rack-cors"
 gem 'graphiql-rails'
 gem 'graphql', '~> 1.10'
 gem 'graphql-guard', '~> 1.3'
+gem 'twilio-ruby'
+
 
 group :development, :test do
   gem 'awesome_print'
@@ -36,6 +38,7 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'dotenv-rails'
+  gem 'aasm'
 end
 
 group :development do
