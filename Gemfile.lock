@@ -336,6 +336,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stripe (10.2.0)
     thor (1.2.2)
     timeout (0.4.0)
     twilio-ruby (6.8.2)
@@ -401,6 +402,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   shrine
   spring-commands-rspec
+  stripe
   twilio-ruby
   tzinfo-data
   vcr
