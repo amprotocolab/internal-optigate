@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   post "/graphql", to: "graphql#execute"
   root to: proc { [200, {}, ['API is live and well to use.']] }
 

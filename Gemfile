@@ -56,3 +56,8 @@ group :test do
 end
 
 gem 'stripe'
+#active admin
+gem 'devise'
+gem 'activeadmin'
+gem 'sprockets', '<4'
+gem 'sass-rails'

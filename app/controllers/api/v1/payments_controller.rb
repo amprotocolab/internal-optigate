@@ -1,6 +1,6 @@
 module API
   module V1
-    class PaymentsController < ApplicationController
+    class PaymentsController < APIController
       def create_payment_intent
         amount = params[:amount] 
 
