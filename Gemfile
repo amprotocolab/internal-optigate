@@ -55,3 +55,9 @@ group :test do
   gem 'webmock'
 end
 
+gem 'stripe'
+#active admin
+gem 'devise'
+gem 'activeadmin'
+gem 'sprockets', '<4'
+gem 'sass-rails'

@@ -1,6 +1,6 @@
 module API
   module V1
-    class VerificationRequestsController < ApplicationController
+    class VerificationRequestsController < APIController
       def verify_otp
         # Get subscriber and form based on params
         subscriber = Subscriber.find(params[:subscriber_id])

@@ -1,6 +1,6 @@
 module API
   module V1
-    class OnesignalController < ApplicationController
+    class OnesignalController < APIController
       def send_notification
         onesignal_service = OneSignalService.new(Rails.application.credentials.onesignal[:app_id],
           Rails.application.credentials.onesignal[:api_key]
