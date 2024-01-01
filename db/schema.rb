@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_19_141015) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_26_135316) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -52,6 +52,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_141015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_contacts_on_uuid", unique: true
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.string "name"
+    t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
