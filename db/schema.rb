@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_26_135316) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_01_132925) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_135316) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_contacts_on_uuid", unique: true
+  end
+
+  create_table "price_pointers", force: :cascade do |t|
+    t.string "subtitle"
+    t.string "description"
+    t.bigint "price_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["price_id"], name: "index_price_pointers_on_price_id"
   end
 
   create_table "prices", force: :cascade do |t|
@@ -120,6 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_135316) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "price_pointers", "prices"
   add_foreign_key "roles_users", "roles", on_delete: :cascade
   add_foreign_key "roles_users", "users", on_delete: :cascade
 end

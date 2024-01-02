@@ -1,19 +1,5 @@
 ActiveAdmin.register Price do
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :name, :value
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :value]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  permit_params :name, :value
+  permit_params :name, :value, price_pointers_attributes: [:id, :description, :subtitle, :_destroy]
 
   index do
     selectable_column
@@ -28,6 +14,14 @@ ActiveAdmin.register Price do
       f.input :name
       f.input :value
     end
+
+    f.inputs 'Price Pointers' do
+      f.has_many :price_pointers, heading: 'Price Pointers', allow_destroy: true, new_record: true do |pp|
+        pp.input :description
+        pp.input :subtitle
+      end
+    end
+
     f.actions
   end
 end
