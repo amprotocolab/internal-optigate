@@ -24,4 +24,17 @@ Rails.application.routes.draw do
       resources :users
     end
   end
+
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :users
+
+      resources :forms, only: [] do
+        collection do
+          get 'generate_otp'
+          post 'verify_otp'
+        end
+      end
+    end
+  end
 end
