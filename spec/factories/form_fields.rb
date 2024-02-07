@@ -1,6 +1,7 @@
+# spec/factories/form_fields.rb
 FactoryBot.define do
   factory :form_field do
-    form { nil }
+    form
     field_type { 1 }
     label { "MyText" }
     font_type { "MyString" }

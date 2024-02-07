@@ -1,6 +1,7 @@
+# spec/factories/visitors.rb
 FactoryBot.define do
   factory :visitor do
-    form { nil }
+    form
     title { "MyString" }
     email { "MyString" }
     phone_number { "MyString" }
