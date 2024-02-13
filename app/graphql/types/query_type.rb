@@ -6,5 +6,6 @@ module Types
     include QueryFields::User
     include QueryFields::SystemNotificationQueryFields 
     include QueryFields::PriceQueryFields 
+    include QueryFields::Forms 
   end
 end
