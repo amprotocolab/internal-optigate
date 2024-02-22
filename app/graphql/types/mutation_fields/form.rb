@@ -1,4 +1,3 @@
-# app/graphql/types/mutation_fields/forms.rb
 module Types
   module MutationFields
     module Forms
@@ -21,6 +20,12 @@ module Types
           :archive_form,
           mutation: Mutations::Forms::ArchiveForm,
           guard:    ->(_, _, ctx) { ctx[:current_ability].can?(:archive, Form) }
+        )
+
+        field(
+          :duplicate_form_template,
+          mutation: Mutations::Forms::DuplicateFormTemplate,
+          guard:    ->(_, _, ctx) { ctx[:current_ability].can?(:duplicate, FormTemplate) }
         )
       end
     end
