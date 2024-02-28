@@ -3,7 +3,7 @@ class Form < ApplicationRecord
 
   enum form_type: { modal: 0, slidein: 1, inline: 2, stickybar: 3  }
   
-  has_many :form_fields
+  has_many :form_fields, as: :formable
   has_many :visitors
 
   validates :form_type, :title, presence: true

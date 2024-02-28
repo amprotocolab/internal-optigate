@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_09_133321) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_21_131853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -66,7 +66,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_133321) do
     t.integer "alignment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "formable_type"
+    t.bigint "formable_id"
     t.index ["form_id"], name: "index_form_fields_on_form_id"
+    t.index ["formable_type", "formable_id"], name: "index_form_fields_on_formable"
+  end
+
+  create_table "form_templates", force: :cascade do |t|
+    t.integer "form_type"
+    t.string "title"
+    t.text "custom_css"
+    t.jsonb "html_script"
+    t.integer "state"
+    t.boolean "prebuilt", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "forms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
