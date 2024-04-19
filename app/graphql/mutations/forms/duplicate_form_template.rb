@@ -13,7 +13,6 @@ module Mutations
         form_attributes = form_template.attributes.except("id", "created_at", "updated_at")
         new_form = Form.create!(form_attributes)
 
-        # Optionally, you can also duplicate associated form fields here if needed
         form_template.form_fields.each do |form_field|
           new_form.form_fields.create!(
             field_type: form_field.field_type,
