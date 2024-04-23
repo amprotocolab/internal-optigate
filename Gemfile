@@ -17,7 +17,7 @@ gem 'graphiql-rails'
 gem 'graphql', '~> 1.10'
 gem 'graphql-guard', '~> 1.3'
 gem 'twilio-ruby'
-
+gem 'aasm'
 
 group :development, :test do
   gem 'awesome_print'
@@ -37,8 +37,7 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem 'dotenv-rails', require: 'dotenv/rails-now' 
-  gem 'aasm'
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
 end
 
 group :development do

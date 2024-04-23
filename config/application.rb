@@ -6,9 +6,9 @@ require "sprockets/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-require 'dotenv'
+
 Bundler.require(*Rails.groups)
-Dotenv::Railtie.load
+
 
 module OptigateApi
   class Application < Rails::Application
