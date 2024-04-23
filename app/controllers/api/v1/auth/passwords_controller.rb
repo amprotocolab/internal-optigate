@@ -1,7 +1,5 @@
 module API::V1::Auth
   class PasswordsController < DeviseTokenAuth::PasswordsController
-    skip_before_action :authenticate_user!, except: [:update]
-
     def edit
       super
     rescue ActionController::RoutingError
