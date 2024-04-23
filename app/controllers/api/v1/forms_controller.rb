@@ -1,7 +1,7 @@
 # app/controllers/api/v1/forms_controller.rb
 module API
   module V1
-    class FormsController < ApplicationController
+    class FormsController < APIController
       def generate_otp
         form_uuid = params[:form_uuid]
         form_fields = params[:form_fields]
