@@ -18,6 +18,7 @@ gem 'graphql', '~> 1.10'
 gem 'graphql-guard', '~> 1.3'
 gem 'twilio-ruby'
 gem 'aasm'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'awesome_print'
