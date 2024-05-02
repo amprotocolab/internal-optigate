@@ -1,5 +1,5 @@
 module Types
-  class FormInput < BaseInputObject
+  class FormInputType < BaseInputObject
     argument :uuid, ID, required: false
     argument :form_type, String, required: true
     argument :title, String, required: true

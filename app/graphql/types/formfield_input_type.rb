@@ -1,5 +1,5 @@
 module Types
-  class FormFieldInput < BaseInputObject
+  class FormfieldInputType < BaseInputObject
     argument :uuid, ID, required: false
     argument :field_type, String, required: true
     argument :label, String, required: true

@@ -1,11 +1,11 @@
 module Mutations
   module Forms
-    class CreateFormWithAssociations < BaseMutation
-      argument :form_attributes, Types::FormInput, required: true
-      argument :form_fields_attributes, [Types::FormFieldInput], required: false
-      argument :visitors_attributes, [Types::VisitorInput], required: false
+    class CreateForm < BaseMutation
+      argument :form_attributes, Types::FormInputType, required: true
+      argument :form_fields_attributes, [Types::FormfieldInputType], required: false
+      argument :visitors_attributes, [Types::VisitorInputType], required: false
 
-      type Types::FormType
+      type Types::FormInputType
 
       def resolve(form_attributes:, form_fields_attributes: nil, visitors_attributes: nil)
         save_as_template = form_attributes.delete(:save_as_template) || false
@@ -21,7 +21,7 @@ module Mutations
         end
 
         visitors_attributes&.each do |visitor_attributes|
-          form.visitors.create!(visitor_attributes.to_h)
+          form.visitors.create!(visitor_attributes.to_h)  
         end
 
         form

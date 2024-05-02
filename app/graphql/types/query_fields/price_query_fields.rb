@@ -4,19 +4,23 @@ module Types
       extend ActiveSupport::Concern
 
       included do
-        # List
         field(
           :prices,
-          resolver: Resolvers::Prices::Index,
+          [Types::PriceType],
+          null: false,
+          description: "List of prices",
           guard: ->(_, _, ctx) { ctx[:current_ability].can?(:index, Price) }
-        ) 
-        # do
-          # extension(
-          #   Extensions::SortExtension,
-          #   sort_column_type: Types::Prices::PriceSortColumnsEnumType,
-          #   sort_column_default: :created_at
-          # )
-        # end
+        )
+
+        field(
+          :price,
+          Types::PriceType,
+          null: true,
+          description: "Find a price by ID",
+          guard: ->(_, _, ctx) { ctx[:current_ability].can?(:show, Price) }
+        ) do
+          argument :id, GraphQL::Types::ID, required: true 
+       end
       end
     end
   end

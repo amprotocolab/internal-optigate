@@ -30,6 +30,7 @@ module OptigateApi
 
     config.debug_exception_response_format = :api
 
+    config.autoload_paths << Rails.root.join('app/graphql')
     config.autoload_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('lib')
 

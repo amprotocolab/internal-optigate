@@ -2,7 +2,7 @@
 module Resolvers
   module Forms
     class Index < Base
-      type [Types::FormType], null: true
+      type [Types::FormInputType], null: true
 
       def resolve
         Form.all

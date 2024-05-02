@@ -1,12 +1,12 @@
 module Types
   module MutationFields
-    module Forms
+    module Form
       extend ActiveSupport::Concern
 
       included do
         field(
           :create_form,
-          mutation: Mutations::CreateFormWithAssociations,
+          mutation: Mutations::Forms::CreateForm,
           guard:    ->(_, _, ctx) { ctx[:current_ability].can?(:create, Form) }
         )
 

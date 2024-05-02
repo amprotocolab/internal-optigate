@@ -1,6 +1,6 @@
 module Types
   module QueryFields
-    module Forms
+    module FormQueryFields
       extend ActiveSupport::Concern
 
       included do
@@ -9,7 +9,7 @@ module Types
           resolver: Resolvers::Forms::Show,
           guard: ->(_, _, ctx) { ctx[:current_ability].can?(:read, Form) }
         ) do
-          argument :id, ID, required: true
+          argument :id, GraphQL::Types::ID, required: true 
         end
 
         field(

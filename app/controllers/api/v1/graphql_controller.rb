@@ -7,13 +7,13 @@ module API
 
       def execute
         result = if params[:_json]
-          OptigateApiSchema.multiplex(
+          OptigateAPISchema.multiplex(
             params[:_json].map do |param|
               { query: param[:query] }.merge(**execute_params(param))
             end
           )
         else
-          OptigateApiSchema.execute(params[:query], **execute_params(params))
+          OptigateAPISchema.execute(params[:query], **execute_params(params))
         end
 
         render json: result
@@ -21,7 +21,7 @@ module API
 
       def execute_dev
         user = current_user || User.new
-        result = OptigateApiSchema.execute(params[:query], **execute_params(params, user))
+        result = OptigateAPISchema.execute(params[:query], **execute_params(params, user))
         render json: result
       end
 

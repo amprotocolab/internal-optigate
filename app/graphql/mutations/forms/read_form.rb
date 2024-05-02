@@ -3,7 +3,7 @@ module Mutations
     class ReadForm < BaseMutation
       argument :id, ID, required: true
 
-      type Types::FormType
+      type Types::FormInputType
 
       def resolve(id:)
         Form.find(id)

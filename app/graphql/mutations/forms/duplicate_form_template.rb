@@ -4,7 +4,7 @@ module Mutations
     class DuplicateFormTemplate < BaseMutation
       argument :form_template_id, ID, required: true
 
-      type Types::FormType
+      type Types::FormInputType
 
       def resolve(form_template_id:)
         form_template = FormTemplate.find(form_template_id)

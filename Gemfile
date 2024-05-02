@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.2"
+ruby "3.1.2"
 
 gem "rails", "~> 7.0.8"
 gem "pg", "~> 1.1"
@@ -19,9 +19,11 @@ gem 'graphql-guard', '~> 1.3'
 gem 'twilio-ruby'
 gem 'aasm'
 gem 'active_model_serializers'
+gem 'cancancan'
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'aasm'
   gem 'bullet'
   gem 'byebug'
   gem 'factory_bot'

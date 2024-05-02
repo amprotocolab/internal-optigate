@@ -4,7 +4,7 @@ module Mutations
     class ArchiveForm < BaseMutation
       argument :id, ID, required: true
 
-      type Types::FormType
+      type Types::FormInputType
 
       def resolve(id:)
         form = Form.find(id)

@@ -1,5 +1,5 @@
 module Types
-  class VisitorInput < BaseInputObject
+  class VisitorInputType < BaseInputObject
     argument :uuid, ID, required: false
     argument :title, String, required: true
     argument :email, String, required: true

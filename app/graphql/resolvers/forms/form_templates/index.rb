@@ -1,12 +1,13 @@
 # app/graphql/resolvers/forms/form_templates/index.rb
 module Resolvers
-  module Forms
-  module FormTemplates
-    class Index < BaseResolver
-      type [Types::FormTemplateType], null: false
+    module Forms
+    module FormTemplates
+      class Index < Base
+        type [Types::FormTemplateType], null: false
 
-      def resolve
-        FormTemplate.all
+        def resolve
+          FormTemplate.all
+        end
       end
     end
   end
