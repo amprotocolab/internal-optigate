@@ -2,7 +2,7 @@
 module Resolvers
   module Forms
     class Show < Base
-      type Types::FormInputType, null: true
+      type Types::FormType, null: true
 
       argument :uuid, ID, required: true
 
