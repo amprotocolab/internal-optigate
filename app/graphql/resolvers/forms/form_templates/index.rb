@@ -3,7 +3,7 @@ module Resolvers
     module Forms
     module FormTemplates
       class Index < Base
-        type [Types::FormTemplateType], null: false
+        type [Types::FormTemplateType.connection_type], null: false
 
         def resolve
           FormTemplate.all

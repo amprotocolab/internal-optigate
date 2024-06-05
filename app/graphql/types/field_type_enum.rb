@@ -1,6 +1,6 @@
 module Types
   class FieldTypeEnum < GraphQL::Schema::Enum
-    value "button", value: 0
-    value "checkbox", value: 1
+    value "BUTTON", value: 0
+    value "CHECKBOX", value: 1
   end
 end

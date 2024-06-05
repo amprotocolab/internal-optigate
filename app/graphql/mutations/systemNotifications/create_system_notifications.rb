@@ -9,7 +9,8 @@ module Mutations
       field :errors, [String], null: false
 
       def resolve(title:, content:, state:)
-        system_notification = SystemNotification.new(title: title, content: content, state: state)
+        user = context[:current_user]
+        system_notification = user.systemNotification.new(title: title, content: content, state: state)
 
         if system_notification.save
           send_notification(title, content, state) 

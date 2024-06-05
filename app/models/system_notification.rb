@@ -1,11 +1,14 @@
 class SystemNotification < ApplicationRecord
   include AASM
 
+  belongs_to :user
+
   validates :title, :content, presence: true
+  validates :uuid, presence: true, uniqueness: true
 
   aasm column: 'state' do
     state :unread, initial: true
-    state :sent
+    state :sent 
     state :read
     state :archived
 

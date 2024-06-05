@@ -1,6 +1,7 @@
 module Types
   class SystemNotificationType < Types::BaseObject
     field :id, ID, null: false
+    field :uuid, String, null: false
     field :title, String, null: false
     field :content, String, null: false
     field :state, String, null: false  
