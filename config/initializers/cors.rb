@@ -11,8 +11,8 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     origins(
       /([\w-]*\.?)?optigate-app\.herokuapp\.com\z/,
       /([\w-]*\.?)?optigate\.com\z/,
-      'localhost:3000',
-      'localhost:3001'
+      'http://localhost:3000',
+      'http://localhost:3001'
     )
 
     resource "*",
