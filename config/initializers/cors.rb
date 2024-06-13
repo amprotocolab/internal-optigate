@@ -20,4 +20,18 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       expose:  ['access-token', 'expiry', 'token-type', 'uid', 'client']
   end
+
+  allow do
+    origins '*'  # Allows all origins for specific resources
+
+    # Authentication endpoints
+    resource '/api/v1/auth/*', :headers => :any, :methods => :any
+
+    # User endpoints
+    resource '/api/v1/users', :headers => :any, :methods => :any
+
+    # GraphQL endpoints
+    resource '/graphql', :headers => :any, :methods => :any
+    resource '/graphql_dev', :headers => :any, :methods => :any
+  end
 end
