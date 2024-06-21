@@ -4,7 +4,7 @@ class SystemNotification < ApplicationRecord
   validates :title, :content, presence: true
 
   aasm column: 'state' do
-    state :draft, initial: true
+    state :unread, initial: true
     state :sent
     state :read
     state :archived

@@ -20,10 +20,10 @@ gem 'twilio-ruby'
 gem 'aasm'
 gem 'active_model_serializers'
 gem 'cancancan'
+gem 'onesignal'
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'aasm'
   gem 'bullet'
   gem 'byebug'
   gem 'factory_bot'

@@ -7,7 +7,7 @@ module Mutations
       argument :custom_css, String, required: false
       argument :html_script, String, required: false
 
-      type Types::FormInputType
+      type Types::FormType
 
       def resolve(id:, form_type: nil, title: nil, custom_css: nil, html_script: nil)
         form = Form.find(id)

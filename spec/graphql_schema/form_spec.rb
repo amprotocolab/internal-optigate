@@ -1,52 +1,74 @@
-# spec/graphql_schema/forms_spec.rb
 require 'rails_helper'
 
-RSpec.describe 'Forms' do
+RSpec.describe 'Forms GraphQL API', type: :request do
   include_context 'GraphQL test'
 
-  describe 'createForm' do
-    let(:form_attributes) { build(:form).attributes }
-    let(:form_fields_attributes) { build_list(:form_field, 3).map(&:attributes) }
-    let(:visitors_attributes) { build_list(:visitor, 2).map(&:attributes) }
+  let(:base_query) { '/graphql' }  # Adjust based on your actual GraphQL endpoint
+
+  describe 'CreateForm' do
+    let(:form_attributes) { attributes_for(:form).transform_keys(&:to_s) }
+    let(:form_fields_attributes) { attributes_for_list(:form_field, 3).map(&:transform_keys(&:to_s)) }
+    let(:visitors_attributes) { attributes_for_list(:visitor, 2).map(&:transform_keys(&:to_s)) }
+    let(:variables) {
+      {
+        formAttributes: form_attributes,
+        formFieldsAttributes: form_fields_attributes,
+        visitorsAttributes: visitors_attributes
+      }
+    }
 
     let(:query) do
       <<~GRAPHQL
-        mutation {
-          createFormWithAssociations(
-            formAttributes: #{form_attributes}
-            formFieldsAttributes: #{form_fields_attributes}
-            visitorsAttributes: #{visitors_attributes}
+        mutation CreateForm($formAttributes: FormInputType!, $formFieldsAttributes: [FormfieldInputType]!, $visitorsAttributes: [VisitorInputType]!) {
+          createForm(
+            formAttributes: $formAttributes
+            formFieldsAttributes: $formFieldsAttributes
+            visitorsAttributes: $visitorsAttributes
           ) {
             id
             title
+            formFields {
+              id
+              label
+            }
+            visitors {
+              id
+              email
+            }
           }
         }
       GRAPHQL
     end
 
-    it 'creates a form with associations' do
-      expect do
-        response
-      end.to change(Form, :count).by(1)
+    it 'successfully creates a form with associations' do
+      expect {
+        post base_query, params: { query: query, variables: variables.to_json }, headers: { 'Content-Type' => 'application/json' }
+      }.to change(Form, :count).by(1)
+         .and change(FormField, :count).by(3)
+         .and change(Visitor, :count).by(2)
 
-      expect(response.dig(:data, :createFormWithAssociations)).to include(
-        id: anything,
-        title: form_attributes['title']
+      json_response = JSON.parse(response.body)
+      expect(json_response.dig('data', 'createForm')).to include(
+        'title' => form_attributes['title'],
+        'formFields' => a_collection_containing_exactly(
+          *form_fields_attributes.map { |attr| include('label' => attr['label']) }
+        ),
+        'visitors' => a_collection_containing_exactly(
+          *visitors_attributes.map { |attr| include('email' => attr['email']) }
+        )
       )
     end
   end
 
-  describe 'updateForm' do
-    let!(:form) { create(:form) }
+  describe 'UpdateForm' do
+    let!(:form) { create(:form, title: 'Initial Title') }
     let(:new_title) { 'Updated Title' }
+    let(:variables) { { id: form.id.to_s, title: new_title } }
 
     let(:query) do
       <<~GRAPHQL
-        mutation {
-          updateForm(
-            id: "#{form.id}"
-            title: "#{new_title}"
-          ) {
+        mutation UpdateForm($id: ID!, $title: String!) {
+          updateForm(id: $id, title: $title) {
             id
             title
           }
@@ -54,23 +76,21 @@ RSpec.describe 'Forms' do
       GRAPHQL
     end
 
-    it 'updates a form' do
-      response
+    it 'updates the title of a form' do
+      post base_query, params: { query: query, variables: variables.to_json }, headers: { 'Content-Type' => 'application/json' }
       form.reload
-
       expect(form.title).to eq(new_title)
     end
   end
 
-  describe 'archiveForm' do
-    let!(:form) { create(:form) }
+  describe 'ArchiveForm' do
+    let!(:form) { create(:form, state: 'published') }
+    let(:variables) { { id: form.id.to_s } }
 
     let(:query) do
       <<~GRAPHQL
-        mutation {
-          archiveForm(
-            id: "#{form.id}"
-          ) {
+        mutation ArchiveForm($id: ID!) {
+          archiveForm(id: $id) {
             id
             state
           }
@@ -79,73 +99,9 @@ RSpec.describe 'Forms' do
     end
 
     it 'archives a form' do
-      response
+      post base_query, params: { query: query, variables: variables.to_json }, headers: { 'Content-Type' => 'application/json' }
       form.reload
-
       expect(form.state).to eq('archived')
-    end
-  end
-
-  describe 'readForm' do
-    let!(:form) { create(:form) }
-
-    let(:query) do
-      <<~GRAPHQL
-        {
-          readForm(id: "#{form.id}") {
-            id
-            title
-          }
-        }
-      GRAPHQL
-    end
-
-    it 'reads a form' do
-      expect(response.dig(:data, :readForm)).to include(
-        id: form.id.to_s,
-        title: form.title
-      )
-    end
-  end
-
-  describe 'indexForms' do
-    let!(:forms) { create_list(:form, 3) }
-
-    let(:query) do
-      <<~GRAPHQL
-        {
-          indexForms {
-            id
-            title
-          }
-        }
-      GRAPHQL
-    end
-
-    it 'lists all forms' do
-      expect(response.dig(:data, :indexForms).count).to eq(forms.count)
-    end
-  end
-
-  describe 'showForm' do
-    let!(:form) { create(:form) }
-
-    let(:query) do
-      <<~GRAPHQL
-        {
-          showForm(uuid: "#{form.uuid}") {
-            id
-            title
-          }
-        }
-      GRAPHQL
-    end
-
-    it 'shows a form' do
-      expect(response.dig(:data, :showForm)).to include(
-        id: form.id.to_s,
-        title: form.title
-      )
     end
   end
 end

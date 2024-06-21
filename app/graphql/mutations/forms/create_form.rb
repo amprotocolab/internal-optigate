@@ -5,26 +5,35 @@ module Mutations
       argument :form_fields_attributes, [Types::FormfieldInputType], required: false
       argument :visitors_attributes, [Types::VisitorInputType], required: false
 
-      type Types::FormInputType
+      type Types::FormType
 
       def resolve(form_attributes:, form_fields_attributes: nil, visitors_attributes: nil)
-        save_as_template = form_attributes.delete(:save_as_template) || false
+        ActiveRecord::Base.transaction do
+          save_as_template = form_attributes.delete(:save_as_template) || false
 
-        if save_as_template
-          form = FormTemplate.create!(form_attributes.to_h)
-        else
-          form = Form.create!(form_attributes.to_h)
+          form = if save_as_template
+                   FormTemplate.create!(form_attributes.to_h)
+                 else
+                   Form.create!(form_attributes.to_h)
+                 end
+
+          create_related_entities(form, form_fields_attributes, visitors_attributes)
+
+          form
         end
+      rescue ActiveRecord::RecordInvalid => e
+        raise GraphQL::ExecutionError, "Validation failed: #{e.record.errors.full_messages.join(', ')}"
+      end
 
-        form_fields_attributes&.each do |form_field_attributes|
-          form.form_fields.create!(form_field_attributes.to_h)
+      private
+
+      def create_related_entities(form, form_fields_attributes, visitors_attributes)
+        form_fields_attributes&.each do |attrs|
+          form.form_fields.create!(attrs.to_h)
         end
-
-        visitors_attributes&.each do |visitor_attributes|
-          form.visitors.create!(visitor_attributes.to_h)  
+        visitors_attributes&.each do |attrs|
+          form.visitors.create!(attrs.to_h)
         end
-
-        form
       end
     end
   end
