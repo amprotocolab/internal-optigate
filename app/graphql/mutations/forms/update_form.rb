@@ -1,7 +1,7 @@
 module Mutations
   module Forms  
   class UpdateForm < BaseMutation
-    argument :id, ID, required: true
+    argument :uuid, ID, required: true
     argument :form_type, Types::FormTypeEnum, required: false
     argument :title, String, required: false
     argument :html_script, String, required: false
@@ -9,11 +9,11 @@ module Mutations
 
     type Types::FormType
 
-    def resolve(id:, form_type: nil, title: nil, html_script: nil, state: nil)
+    def resolve(uuid:, form_type: nil, title: nil, html_script: nil, state: nil)
       user = context[:current_user]
       raise GraphQL::ExecutionError, "Authentication required" unless user
 
-      form = user.forms.find_by(id: id)
+      form = user.forms.find_by(uuid: uuid)
       raise GraphQL::ExecutionError, "Form not found" unless form
 
       form.update!(

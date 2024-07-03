@@ -1,6 +1,6 @@
 module Mutations
   class CreateForm < BaseMutation
-    argument :uuid, String, required: true
+    argument :uuid, ID, required: true
     argument :form_type, Types::FormTypeEnum, required: true
     argument :title, String, required: true
     argument :html_script, String, required: false

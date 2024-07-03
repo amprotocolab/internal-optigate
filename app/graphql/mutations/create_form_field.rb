@@ -1,6 +1,6 @@
 module Mutations
   class CreateFormField < BaseMutation
-    argument :uuid, String, required: true
+    argument :uuid, ID, required: true
     argument :field_type, Types::FormFieldTypeEnum, required: true
     argument :custom_css, String, required: true
     argument :label, String, required: true

@@ -1,7 +1,6 @@
 module Types
   class FormFieldType < Types::BaseObject
-    field :id, ID, null: false
-    field :uuid, String, null: false
+    field :uuid, ID, null: false
     field :field_type, FormFieldTypeEnum, null: false
     field :custom_css, String, null: false
     field :label, String, null: false
