@@ -11,13 +11,27 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     origins(
       /([\w-]*\.?)?optigate-app\.herokuapp\.com\z/,
       /([\w-]*\.?)?optigate\.com\z/,
-      'localhost:3000',
-      'localhost:3001'
+      'http://localhost:3000',
+      'http://localhost:3001'
     )
 
     resource "*",
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       expose:  ['access-token', 'expiry', 'token-type', 'uid', 'client']
+  end
+
+  allow do
+    origins '*'  # Allows all origins for specific resources
+
+    # Authentication endpoints
+    resource '/api/v1/auth/*', :headers => :any, :methods => :any
+
+    # User endpoints
+    resource '/api/v1/users', :headers => :any, :methods => :any
+
+    # GraphQL endpoints
+    resource '/graphql', :headers => :any, :methods => :any
+    resource '/graphql_dev', :headers => :any, :methods => :any
   end
 end
