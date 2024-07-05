@@ -1,12 +1,12 @@
 module Mutations
   module Forms
     class ReadForm < BaseMutation
-      argument :id, ID, required: true
+      argument :uuid, ID, required: true
 
-      type Types::FormInputType
+      type Types::FormType
 
-      def resolve(id:)
-        Form.find(id)
+      def resolve(uuid:)
+        Form.find_by(uuid: uuid)
       end
     end
   end

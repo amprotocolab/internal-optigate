@@ -2,12 +2,12 @@
 module Mutations
   module Forms
     class ArchiveForm < BaseMutation
-      argument :id, ID, required: true
+      argument :uuid, ID, required: true
 
-      type Types::FormInputType
+      type Types::FormType
 
-      def resolve(id:)
-        form = Form.find(id)
+      def resolve(uuid:)
+        form = Form.find_by(uuid: uuid)
         form.archive!
         form
       end

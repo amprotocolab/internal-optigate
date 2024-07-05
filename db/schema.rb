@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_21_131853) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_31_145516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -54,22 +54,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_131853) do
     t.index ["uuid"], name: "index_contacts_on_uuid", unique: true
   end
 
-  create_table "form_fields", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "form_id", null: false
-    t.integer "field_type"
-    t.text "label"
-    t.string "font_type"
-    t.integer "font_size"
-    t.string "font_family"
-    t.string "fill_color"
-    t.string "fill_color_percent"
-    t.integer "alignment_type"
+  create_table "form_fields", force: :cascade do |t|
+    t.string "uuid", null: false
+    t.integer "field_type", null: false
+    t.text "custom_css", null: false
+    t.text "label", null: false
+    t.string "font_type", null: false
+    t.integer "font_size", null: false
+    t.string "font_family", null: false
+    t.string "fill_color", null: false
+    t.integer "fill_color_percent", null: false
+    t.integer "alignment_type", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "formable_type"
-    t.bigint "formable_id"
-    t.index ["form_id"], name: "index_form_fields_on_form_id"
-    t.index ["formable_type", "formable_id"], name: "index_form_fields_on_formable"
+    t.index ["user_id"], name: "index_form_fields_on_user_id"
+    t.index ["uuid"], name: "index_form_fields_on_uuid", unique: true
   end
 
   create_table "form_templates", force: :cascade do |t|
@@ -83,14 +83,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_131853) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "forms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "form_type"
-    t.string "title"
-    t.text "custom_css"
-    t.jsonb "html_script"
-    t.integer "state"
+  create_table "forms", force: :cascade do |t|
+    t.string "uuid", null: false
+    t.integer "form_type", null: false
+    t.string "title", null: false
+    t.text "html_script"
+    t.string "state", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_forms_on_user_id"
+    t.index ["uuid"], name: "index_forms_on_uuid", unique: true
   end
 
   create_table "price_pointers", force: :cascade do |t|
@@ -126,11 +129,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_131853) do
   end
 
   create_table "system_notifications", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
+    t.string "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.string "title", null: false
+    t.text "content", null: false
+    t.string "state", default: "unread", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "state", default: "unread", null: false
+    t.index ["user_id"], name: "index_system_notifications_on_user_id"
+    t.index ["uuid"], name: "index_system_notifications_on_uuid", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -168,22 +175,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_131853) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "visitors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "form_id", null: false
-    t.string "title"
-    t.string "email"
-    t.string "phone_number"
-    t.string "company"
-    t.string "otp_code"
-    t.boolean "subscriber", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["form_id"], name: "index_visitors_on_form_id"
-  end
-
-  add_foreign_key "form_fields", "forms"
+  add_foreign_key "form_fields", "users"
+  add_foreign_key "forms", "users"
   add_foreign_key "price_pointers", "prices"
   add_foreign_key "roles_users", "roles", on_delete: :cascade
   add_foreign_key "roles_users", "users", on_delete: :cascade
-  add_foreign_key "visitors", "forms"
+  add_foreign_key "system_notifications", "users"
 end

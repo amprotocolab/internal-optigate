@@ -1,13 +1,12 @@
-# app/graphql/mutations/forms/duplicate_form_template.rb
 module Mutations
   module Forms
     class DuplicateFormTemplate < BaseMutation
-      argument :form_template_id, ID, required: true
+      argument :form_template_uuid, ID, required: true
 
-      type Types::FormInputType
+      type Types::FormType
 
-      def resolve(form_template_id:)
-        form_template = FormTemplate.find(form_template_id)
+      def resolve(form_template_uuid:)
+        form_template = FormTemplate.find_by(uuid: form_template_uuid)
 
         # Create a new Form using the attributes of the FormTemplate
         form_attributes = form_template.attributes.except("id", "created_at", "updated_at")

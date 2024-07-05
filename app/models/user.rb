@@ -45,6 +45,9 @@ class User < ApplicationRecord
   }
 
   has_and_belongs_to_many :roles
+  has_many :forms, dependent: :destroy
+  has_many :system_notifications, dependent: :destroy
+  has_many :form_fields
 
   def full_name
     "#{first_name} #{last_name}"
