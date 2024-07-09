@@ -1,6 +1,7 @@
+# app/graphql/types/field_type_enum.rb
 module Types
-  class FieldTypeEnum < GraphQL::Schema::Enum
-    value "BUTTON", value: 0
-    value "CHECKBOX", value: 1
+  class FieldTypeEnum < Types::BaseEnum
+    value "BUTTON", value: "button"
+    value "CHECKBOX", value: "checkbox"
   end
 end

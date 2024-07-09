@@ -1,8 +1,9 @@
+# app/graphql/types/form_type_enum.rb
 module Types
-  class FormTypeEnum < GraphQL::Schema::Enum
-    value "modal", value: 0
-    value "slidein", value: 1
-    value "inline", value: 2
-    value "stickybar", value: 3
+  class FormTypeEnum < Types::BaseEnum
+    value "MODAL", value: "modal"
+    value "SLIDEIN", value: "slidein"
+    value "INLINE", value: "inline"
+    value "STICKYBAR", value: "stickybar"
   end
 end

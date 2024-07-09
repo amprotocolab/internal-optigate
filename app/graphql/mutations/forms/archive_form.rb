@@ -8,6 +8,7 @@ module Mutations
 
       def resolve(uuid:)
         form = Form.find_by(uuid: uuid)
+        raise GraphQL::ExecutionError, "Form not found" unless form
         form.archive!
         form
       end
