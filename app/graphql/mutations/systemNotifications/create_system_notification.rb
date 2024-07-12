@@ -1,6 +1,6 @@
 module Mutations
   module SystemNotifications
-    class CreateSystemNotifications < BaseMutation
+    class CreateSystemNotification < BaseMutation
       argument :title, String, required: true
       argument :content, String, required: true
       argument :state, String, required: true
@@ -10,7 +10,7 @@ module Mutations
 
       def resolve(title:, content:, state:)
         user = context[:current_user]
-        system_notification = user.systemNotification.new(title: title, content: content, state: state)
+        system_notification = user.system_notifications.new(title: title, content: content, state: state)
 
         if system_notification.save
           send_notification(title, content, state) 
