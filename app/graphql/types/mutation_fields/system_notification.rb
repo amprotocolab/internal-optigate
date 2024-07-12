@@ -5,26 +5,26 @@ module Types
 
       included do
         field(
-          :create_system_notifications,
-          mutation: Mutations::SystemNotifications::CreateSystemNotifications,
+          :create_system_notification,
+          mutation: Mutations::SystemNotifications::CreateSystemNotification,
           guard: ->(_, _, ctx) { ctx[:current_ability].can?(:create, SystemNotification) }
         )
 
         field(
-          :update_system_notifications,
-          mutation: Mutations::SystemNotifications::UpdateSystemNotifications,
+          :update_system_notification,
+          mutation: Mutations::SystemNotifications::UpdateSystemNotification,
           guard: ->(_, _, ctx) { ctx[:current_ability].can?(:update, SystemNotification) }
         )
 
         field(
-          :delete_system_notifications,
-          mutation: Mutations::SystemNotifications::DeleteSystemNotifications,
+          :delete_system_notification,
+          mutation: Mutations::SystemNotifications::DeleteSystemNotification,
           guard: ->(_, _, ctx) { ctx[:current_ability].can?(:delete, SystemNotification) }
         )
 
         field(
-          :mark_system_notifications_as_read,
-          mutation: Mutations::SystemNotifications::MarkSystemNotificationsAsRead,
+          :mark_system_notification_as_read,
+          mutation: Mutations::SystemNotifications::MarkSystemNotificationAsRead,
           guard: ->(_, _, ctx) { ctx[:current_ability].can?(:update, SystemNotification) }
         )
       end

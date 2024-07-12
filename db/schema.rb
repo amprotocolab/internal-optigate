@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_31_145516) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_08_234427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -65,10 +65,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_31_145516) do
     t.string "fill_color", null: false
     t.integer "fill_color_percent", null: false
     t.integer "alignment_type", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_form_fields_on_user_id"
+    t.bigint "form_id"
+    t.index ["form_id"], name: "index_form_fields_on_form_id"
     t.index ["uuid"], name: "index_form_fields_on_uuid", unique: true
   end
 
@@ -92,6 +92,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_31_145516) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "email_confirmation_with_otp", default: false, null: false
+    t.boolean "thank_you_message", default: false, null: false
     t.index ["user_id"], name: "index_forms_on_user_id"
     t.index ["uuid"], name: "index_forms_on_uuid", unique: true
   end
@@ -175,7 +177,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_31_145516) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "form_fields", "users"
+  add_foreign_key "form_fields", "forms"
   add_foreign_key "forms", "users"
   add_foreign_key "price_pointers", "prices"
   add_foreign_key "roles_users", "roles", on_delete: :cascade

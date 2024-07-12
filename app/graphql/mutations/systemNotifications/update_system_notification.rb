@@ -1,6 +1,6 @@
 module Mutations
   module SystemNotifications
-    class UpdateSystemNotifications < BaseMutation
+    class UpdateSystemNotification < BaseMutation
       argument :id, ID, required: true
       argument :title, String, required: true
       argument :content, String, required: true

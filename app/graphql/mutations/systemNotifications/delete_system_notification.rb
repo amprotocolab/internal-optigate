@@ -1,6 +1,6 @@
 module Mutations
   module SystemNotifications
-    class DeleteSystemNotifications < BaseMutation
+    class DeleteSystemNotification < BaseMutation
       argument :id, ID, required: true
 
       field :success, Boolean, null: false

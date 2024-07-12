@@ -1,6 +1,6 @@
 module Mutations
   module SystemNotifications
-    class MarkSystemNotificationsAsRead < BaseMutation
+    class MarkSystemNotificationAsRead < BaseMutation
       argument :uuids, [ID], required: true
 
       field :success, Boolean, null: false
