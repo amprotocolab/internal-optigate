@@ -13,5 +13,10 @@ class Form < ApplicationRecord
   validates :email_confirmation_with_otp, inclusion: { in: [true, false] }
   validates :thank_you_message, inclusion: { in: [true, false] }
     
-  
+  private
+
+  def generate_uuid
+    self.uuid = SecureRandom.uuid
+  end  
+
 end

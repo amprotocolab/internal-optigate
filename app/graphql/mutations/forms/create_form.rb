@@ -2,7 +2,6 @@
 module Mutations
   module Forms
     class CreateForm < BaseMutation
-      argument :uuid, ID, required: true
       argument :form_type, Types::FormTypeEnum, required: true
       argument :title, String, required: true
       argument :html_script, String, required: false
@@ -13,12 +12,11 @@ module Mutations
 
       type Types::FormType
 
-      def resolve(uuid:, form_type:, title:, html_script:, state:, email_confirmation_with_otp: false, thank_you_message: false, form_fields_attributes: [])
+      def resolve( form_type:, title:, html_script:, state:, email_confirmation_with_otp: false, thank_you_message: false, form_fields_attributes: [])
         user = context[:current_user]
         raise GraphQL::ExecutionError, "Authentication required" unless user
 
         form_params = {
-          uuid: uuid,
           form_type: form_type,
           title: title,
           html_script: html_script,

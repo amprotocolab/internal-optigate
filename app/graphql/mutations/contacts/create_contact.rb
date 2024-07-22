@@ -1,7 +1,6 @@
 module Mutations
   module Contacts
     class CreateContact < BaseMutation
-      argument :uuid,          ID,      required: true
       argument :first_name,    String,  required: true
       argument :last_name,     String,  required: true
       argument :email,         String,  required: true
@@ -10,9 +9,8 @@ module Mutations
 
       field :contact, Types::ContactType, null: false
 
-      def resolve(uuid:, first_name:, last_name:, email:, contact_number:, message:)
-        contact = Contact.create!(
-          uuid: uuid,  
+      def resolve(first_name:, last_name:, email:, contact_number:, message:)
+        contact = Contact.create!(  
           first_name: first_name,
           last_name: last_name,
           email: email,
