@@ -3,7 +3,6 @@ module Types
   class FormFieldInputType < Types::BaseInputObject
     graphql_name 'FormFieldInputType'
 
-    argument :uuid, ID, required: false
     argument :field_type, FieldTypeEnum, required: true
     argument :custom_css, String, required: true
     argument :label, String, required: true
