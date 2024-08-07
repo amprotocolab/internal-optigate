@@ -2,9 +2,14 @@
 module Resolvers
   module Forms
     class Index < Base
-      type [Types::FormType.connection_type], null: true
+      type [Types::FormType.connection_type], null: false
 
-      def resolve
+      argument :first, Integer, required: false
+      argument :after, String, required: false
+      argument :last, Integer, required: false
+      argument :before, String, required: false 
+
+      def resolve(**args)
         Form.all
       end
     end

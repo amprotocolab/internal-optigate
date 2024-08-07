@@ -26,4 +26,5 @@ class OptigateAPISchema < GraphQL::Schema
         "Cannot delete #{record.class.name} with UUID: #{record.uuid}. Errors: #{record.errors.full_messages}"
       )
     end
+
 end
